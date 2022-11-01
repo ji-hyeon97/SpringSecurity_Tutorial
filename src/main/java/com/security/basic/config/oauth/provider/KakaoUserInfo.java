@@ -11,7 +11,7 @@ public class KakaoUserInfo implements OAuth2UserInfo{
 
     @Override
     public String getProviderId() {
-        return (String)attributes.get("id");
+        return String.valueOf(attributes.get("id"));
     }
 
     @Override
@@ -26,6 +26,6 @@ public class KakaoUserInfo implements OAuth2UserInfo{
 
     @Override
     public String getName() {
-        return (String)attributes.get("name");
+        return (String)attributes.get("properties");
     }
 }

@@ -37,6 +37,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         System.out.println("Attributes \n" + oauth2User.getAttributes());
 
         OAuth2UserInfo oAuth2UserInfo = null;
+        OAuth2UserInfo oAuth2UserInfo_kakaoEmail = null;
 
         if(userRequest.getClientRegistration().getRegistrationId().equals("google")){
             oAuth2UserInfo = new GoogleUserInfo(oauth2User.getAttributes());
@@ -45,7 +46,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         } else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")){
             oAuth2UserInfo = new NaverUserInfo((Map)oauth2User.getAttributes().get("response"));
         } else if(userRequest.getClientRegistration().getRegistrationId().equals("kakao")){
-            oAuth2UserInfo = new KakaoUserInfo((Map)oauth2User.getAttributes().get("kakao_account"));
+            oAuth2UserInfo = new KakaoUserInfo(oauth2User.getAttributes());
+            oAuth2UserInfo_kakaoEmail = new KakaoUserInfo((Map)oauth2User.getAttributes().get("kakao_account"));
+
+            System.out.println(oAuth2UserInfo_kakaoEmail.getEmail());
         }
 
         String provider = oAuth2UserInfo.getProvider();
@@ -53,6 +57,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String username = provider + "_" + providerId; //google_118394802562392465097
         String password = bCryptPasswordEncoder.encode("서지현");
         String email = oAuth2UserInfo.getEmail();
+        if(provider == "kakao"){
+            email = oAuth2UserInfo_kakaoEmail.getEmail();
+        }
         String role = "ROLE_USER";
 
         User userEntity = userRepository.findByUsername(username);
