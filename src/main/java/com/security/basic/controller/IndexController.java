@@ -41,7 +41,7 @@ public class IndexController {
                                                @AuthenticationPrincipal OAuth2User oauth){ //의존성 주입
         System.out.println("====== test OAuth login ========");
 
-        OAuth2User oAuth2User = ( OAuth2User)authentication.getPrincipal();
+        OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
         System.out.println("authentication" + oAuth2User.getAttributes());
         System.out.println("authentication" + oauth.getAttributes());
         return "OAuth 세션정보 확인";

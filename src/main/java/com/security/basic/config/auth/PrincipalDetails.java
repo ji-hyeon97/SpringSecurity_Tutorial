@@ -1,10 +1,10 @@
 package com.security.basic.config.auth;
 
 // 시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킨다
-// 로그인을 진행이 완료가 되면 시큐리티 session을 만든다. (Security ContextHolder에 저장)
+// 로그인을 진행이 완료가 되면 시큐리티 session 을 만든다. (Security ContextHolder 에 저장)
 // 오브젝트 => Authentication 타입 객체
-// Authentication안에 User정보가 있어야 한다
-// User오브젝트 타입 => UserDetails 타입 객체
+// Authentication 안에 User 정보가 있어야 한다
+// User 오브젝트 타입 => UserDetails 타입 객체
 
 // Security Session => Authentication => UserDetails(PrincipalDetails)
 

@@ -5,6 +5,7 @@ import com.security.basic.config.oauth.provider.*;
 import com.security.basic.model.User;
 import com.security.basic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -17,7 +18,7 @@ import java.util.Map;
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
-    @Autowired
+    @Autowired @Lazy
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -28,7 +29,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         System.out.println("ClientRegistration \n" + userRequest.getClientRegistration()); //registrationId 를 통해 어떤 oauth 로 로그인했는지 확인 가능
-        System.out.println("AccessToken \n" + userRequest.getAccessToken());
+        System.out.println("AccessToken \n" + userRequest.getAccessToken().getTokenValue());
 
         OAuth2User oauth2User = super.loadUser(userRequest);
         //구글로그인 버튼 -> 로그인 완료 -> code 리턴(OAuth-client 라이브러리) -> Access Token 요청
